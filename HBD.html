@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday!</title>
+  <title>Happy Birthday</title>
   <style>
     body {
       margin: 0;
@@ -17,12 +17,20 @@
     }
     .message {
       position: absolute;
-      top: 30%;
+      top: 20%;
       text-align: center;
-      font-size: 3em;
+      font-size: 4em;
       font-weight: bold;
       color: gold;
       text-shadow: 0 0 20px gold, 0 0 30px orange, 0 0 40px red;
+    }
+    .name {
+      position: absolute;
+      top: 30%;
+      text-align: center;
+      font-size: 3em;
+      color: cyan;
+      text-shadow: 0 0 10px cyan, 0 0 20px blue;
     }
     canvas {
       display: block;
@@ -31,6 +39,7 @@
 </head>
 <body>
   <div class="message">🎉 Happy Birthday! 🎂</div>
+  <div class="name">[Your Name Here]</div>
   <canvas id="fireworks"></canvas>
   <script>
     const canvas = document.getElementById('fireworks');
@@ -40,7 +49,7 @@
     canvas.height = window.innerHeight;
 
     let particles = [];
-    const colors = ['#ff5252', '#ffb142', '#ffdd59', '#2ed573', '#1e90ff', '#3742fa', '#a55eea'];
+    const colors = ['255,82,82', '255,177,66', '255,221,89', '46,213,115', '30,144,255', '115,103,240', '165,94,234'];
 
     class Particle {
       constructor(x, y, color, angle, speed) {
@@ -80,7 +89,9 @@
     }
 
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
       particles.forEach((particle, i) => {
         if (particle.alpha <= 0) {
           particles.splice(i, 1);
@@ -89,6 +100,7 @@
           particle.draw();
         }
       });
+
       requestAnimationFrame(animate);
     }
 
@@ -100,7 +112,7 @@
       const x = Math.random() * canvas.width;
       const y = Math.random() * canvas.height / 2;
       createFirework(x, y);
-    }, 800);
+    }, 1000);
 
     animate();
   </script>
