@@ -9,15 +9,12 @@
       margin: 0;
       overflow: hidden;
       background: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
       font-family: Arial, sans-serif;
     }
     .message {
       position: absolute;
       top: 20%;
+      width: 100%;
       text-align: center;
       font-size: 4em;
       font-weight: bold;
@@ -27,6 +24,7 @@
     .name {
       position: absolute;
       top: 30%;
+      width: 100%;
       text-align: center;
       font-size: 3em;
       color: cyan;
@@ -39,17 +37,32 @@
 </head>
 <body>
   <div class="message">🎉 Happy Birthday! 🎂</div>
-  <div class="name">Ganesh</div>
+  <div class="name"></div>
   <canvas id="fireworks"></canvas>
   <script>
+    // Prompt the user for their name
+    const userName = prompt("What's your name?") || "Guest";
+
+    // Display the user's name
+    document.querySelector('.name').textContent = userName;
+
     const canvas = document.getElementById('fireworks');
     const ctx = canvas.getContext('2d');
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
+    const colors = [
+      '255,82,82',
+      '255,177,66',
+      '255,221,89',
+      '46,213,115',
+      '30,144,255',
+      '115,103,240',
+      '165,94,234'
+    ];
+
     let particles = [];
-    const colors = ['255,82,82', '255,177,66', '255,221,89', '46,213,115', '30,144,255', '115,103,240', '165,94,234'];
 
     class Particle {
       constructor(x, y, color, angle, speed) {
@@ -92,9 +105,9 @@
       ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach((particle, i) => {
+      particles.forEach((particle, index) => {
         if (particle.alpha <= 0) {
-          particles.splice(i, 1);
+          particles.splice(index, 1);
         } else {
           particle.update();
           particle.draw();
